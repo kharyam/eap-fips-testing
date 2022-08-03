@@ -9,7 +9,7 @@ oc new-project eap-no-fips
 #############################
 # Deploy Clustered EAP Pods #
 #############################
-oc new-build --name eap-clustering https://github.com/kharyam/eap74-cluster-test.git -i $EAP_IMAGE_STREAM
+oc new-build --name eap-clustering https://github.com/kharyam/eap74-sample-app.git -i $EAP_IMAGE_STREAM
 build_exists=1
 
 echo -n Waiting for build
