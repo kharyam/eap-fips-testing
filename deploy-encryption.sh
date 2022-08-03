@@ -4,6 +4,8 @@ EAP_IMAGE=image-registry.openshift-image-registry.svc:5000/openshift/jboss-eap74
 EAP_IMAGE_STREAM=jboss-eap74-openjdk11-openshift:latest
 KEYSTORE_PASSWORD=PASSWORD
 
+oc new-project eap-fips
+
 ###############################
 # Create keystore for JGroups #
 ############################### 
@@ -20,7 +22,8 @@ oc create secret generic eap-clustering --from-file=jgroups.keystore
 #############################
 # Deploy Clustered EAP Pods #
 #############################
-oc new-build --name eap-clustering https://github.com/kharyam/eap74-cluster-test.git -i $EAP_IMAGE_STREAM
+#oc new-build --name eap-clustering https://github.com/kharyam/eap74-cluster-test.git -i $EAP_IMAGE_STREAM
+oc new-build --name eap-clustering https://github.com/kharyam/eap74-sample-app.git#cleanup -i $EAP_IMAGE_STREAM
 build_exists=1
 
 echo -n Waiting for build
