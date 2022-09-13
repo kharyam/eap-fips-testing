@@ -53,5 +53,7 @@ oc set env deployment/eap-clustering JDK_JAVA_OPTIONS='-Dcom.redhat.fips=false'
 # Create 2 pods
 oc patch deployment/eap-clustering -p '{"spec": {"replicas" : 2 } }'
 
+oc set probe deployment/eap-clustering --readiness --get-url=http://:8080 --liveness --initial-delay-seconds=60 --get-url=http://:8080
+
 oc create route edge --service eap-clustering
 

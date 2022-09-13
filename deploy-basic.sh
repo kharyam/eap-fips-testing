@@ -30,5 +30,7 @@ oc new-app --name eap-clustering -i eap-clustering -e JGROUPS_PING_PROTOCOL=kube
 # Create 2 pods
 oc patch deployment/eap-clustering -p '{"spec": {"replicas" : 2 } }'
 
-oc create route edge --service eap-clustering
+# Create probes
+oc set probe deployment/eap-clustering --readiness --get-url=http://:8080 --liveness --initial-delay-seconds=60 --get-url=http://:8080
 
+oc create route edge --service eap-clustering
